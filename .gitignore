@@ -1,4 +1,12 @@
 # Files to ignore
+*.log
 
 # compiled files
 *.exe
+
+# tex files
+*.aux
+*.bbl
+*.blg
+*.synctex
+*.out
