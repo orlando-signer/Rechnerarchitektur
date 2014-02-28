@@ -1,0 +1,53 @@
+\documentclass[a4paper,abstracton]{scrartcl}
+\usepackage[ngerman]{babel} %deutsch
+\usepackage[utf8]{inputenc} %Umlaute
+\usepackage{xcolor,graphicx} %grafike inelade
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{units}
+\usepackage{textcomp}
+\usepackage{amstext}
+\usepackage{graphicx}
+\usepackage[pdftex]{hyperref}  %verlinkige, immer zungerscht!
+\input{../tex/source_format} % sourcecode formatierung
+
+\providecommand{\tabularnewline}{\\}
+
+\title{Rechnerarchitektur Serie 1}
+\author{Dominik Bodenmann 08-103-053\\
+	Orlando Signer 12-119-715\\}
+
+
+\begin{document}
+\maketitle
+
+\section{Aufgabe 1}
+5 Bytes, 4 Bytes für die Zeichen (T,e,s,t) und 1 Byte für \textbackslash0.
+
+\section{Aufgabe 2}
+\begin{lstlisting}[caption=int-Array]
+int a[10];
+
+int getAt(int i) {
+	return a[i];
+}
+
+int getAtWithPointer(int *a, int i) {
+	return *(a+i);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=short-Array]
+short a[10];
+
+short getAt(int i) {
+	return a[i];
+}
+
+short getAtWithPointer(short *a, int i) {
+	return *(a+i);
+}
+\end{lstlisting}
+Bei Pointern beziehen sich die Rechenoperationen immer auf die Breite des Variablentyps (short 2 Byte, int 4 Byte). Somit zeigt auch *(a+i) auf die i-te Stelle im Array.
+
+\end{document}
