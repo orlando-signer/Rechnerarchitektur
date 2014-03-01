@@ -5,6 +5,7 @@
 int main(int argc, const char * argv[]) {
 	aufgabe1();
 	aufgabe2();
+	aufgabe3();
 	
 	return 0;
 }
@@ -62,5 +63,19 @@ int aufgabe2() {
 	
 	printf("1: %d\n", getAtShort(5));
 	printf("2: %d\n", getAtShort1(c, 6));
+	return 0;
+}
+
+int aufgabe3() {
+	long a = 1234567890;
+	long b = 987654321;
+	
+	void *p = &b;
+	printf("Aufgabe 3:\n");
+	printf("%x\n", p);
+	printf("%x\n", *(long*)p++);
+	printf("%x\n", *(char*)p++);
+	printf("%x\n", *(unsigned char*)p++);
+	printf("%x\n", p);
 }
 
