@@ -6,6 +6,7 @@ int main(int argc, const char * argv[]) {
 	aufgabe1();
 	aufgabe2();
 	aufgabe3();
+	aufgabe4();
 	
 	return 0;
 }
@@ -66,6 +67,7 @@ int aufgabe2() {
 	return 0;
 }
 
+// Aufgabe 3
 int aufgabe3() {
 	long a = 1234567890;
 	long b = 987654321;
@@ -77,5 +79,30 @@ int aufgabe3() {
 	printf("%x\n", *(char*)p++);
 	printf("%x\n", *(unsigned char*)p++);
 	printf("%x\n", p);
+	return 0;
 }
+
+// Aufgabe 4
+int preIncrement(int *x) {
+	return ++(*x);
+}
+
+int postIncrement(int *x) {
+	return (*x)++;
+}
+
+int aufgabe4() {
+	int i, j;
+	int k, l;
+	i = k = 1337;
+	
+	j = preIncrement(&i);
+	l = postIncrement(&k);
+	
+	printf("Aufgabe4:");
+	printf("Pre-Increment: i = %d, j = %d\n", i, j);
+	printf("Post-Increment: i = %d, j = %d\n", k, l);
+}
+
+
 
