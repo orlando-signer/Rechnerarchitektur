@@ -22,6 +22,7 @@
 \maketitle
 
 \section{Theorieteil}
+
 \subsection{Aufgabe 1}
 5 Bytes, 4 Bytes für die Zeichen (T,e,s,t) und 1 Byte für \textbackslash0.
 
@@ -49,6 +50,7 @@ short getAtWithPointer(short *a, int i) {
 	return *(a+i);
 }
 \end{lstlisting}
+
 Bei Pointern beziehen sich die Rechenoperationen immer auf die Breite des Variablentyps (short 2 Byte, int 4 Byte). Somit zeigt auch *(a+i) auf die i-te Stelle im Array, egal ob es sich um ein short- oder int-array handelt.
 
 \subsection{Aufgabe 3}
@@ -68,5 +70,7 @@ bffff847
 	\item Der Wert von p: Die 4. Speicheradresse von b.
 \end{enumerate}
 
-
+\subsection{Aufgabe 4}
+Preincrement: i = 1338, j = 1338 \\
+Postincrement: i = 1338, j = 1337
 \end{document}
