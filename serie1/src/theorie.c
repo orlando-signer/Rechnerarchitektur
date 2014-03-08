@@ -7,6 +7,8 @@ int main(int argc, const char * argv[]) {
 	aufgabe2();
 	aufgabe3();
 	aufgabe4();
+	aufgabe5();
+	aufgabe6();
 	
 	return 0;
 }
@@ -99,10 +101,49 @@ int aufgabe4() {
 	j = preIncrement(&i);
 	l = postIncrement(&k);
 	
-	printf("Aufgabe4:");
+	printf("Aufgabe4:\n");
 	printf("Pre-Increment: i = %d, j = %d\n", i, j);
 	printf("Post-Increment: i = %d, j = %d\n", k, l);
 }
 
+// Aufgabe 5
+int aufgabe5() {
+	printf("Aufgabe 5:\n");
+	
+	printf("1. Teil\n");
+	short x[3] = {1, 2, 3};
+	short *px = x;
+	printf("%i %i\n", *x, *px);
+	px++;
+	printf("%i %i\n", *x, *px);
+	
+	printf("2. Teil\n");
+	short y = 3;
+	short *py = &y;
+	*(py--) = 10;
+	*py = 11;
+	printf("%i %i\n", y, *py);
+	printf("%X %X\n", &y, py);
+}
 
+// Aufgabe 6
+int aufgabe6() {
+	printf("Aufgabe 6:\n");
+	struct {
+		char a[4];
+		char b;
+		char c;
+		short int d;
+	} myStruct;
+
+
+	union {
+		char a[8];
+		int b;
+		short int d[4];
+	} myUnion;
+
+	printf("%i\n", sizeof(myStruct));
+	printf("%i\n", sizeof(myUnion));
+}
 

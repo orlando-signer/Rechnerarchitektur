@@ -73,4 +73,23 @@ bffff847
 \subsection{Aufgabe 4}
 Preincrement: i = 1338, j = 1338 \\
 Postincrement: i = 1338, j = 1337
+
+\subsection{Aufgabe 5}
+1. Codestück
+\begin{itemize}
+	\item 3. Zeile: x und px werden dereferenziert, es zeigen beide auf die 0. Stelle im Array. Ausgabe: "1 1"
+	\item 5. Zeile: px wurde inkrementiert, zeigt jetzt auf die 1. Stelle. Ausgabe: "1 2"
+\end{itemize}
+
+
+2. Codestück
+\begin{verbatim}
+*(py--) = 10;
+\end{verbatim} setzt zuerst y auf 10, danach wird py dekrementiert und auf 11 gesetzt. Die Ausgabe ist also "10 11"
+
+\subsection{Aufgabe 6}
+Grösse des structs: 4 * 1 Byte + 2 * 1 Byte + 2 Byte = 8 Bytes \\
+Grösse des union: max( 8 * 1 Byte, 4 Byte, 2 Byte) = 8 Bytes
+
+
 \end{document}
