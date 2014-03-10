@@ -1,7 +1,7 @@
 /* TODO: Task (b) Please fill in the following lines, then remove this line.
  *
- * author(s):   Dominik Bodenmann
- *              Orlando Signer
+ * author(s):   Dominik Bodenmann  08-103-053
+ *              Orlando Signer     12-119-715
  *
  * Please follow the instructions given in comments below. 
  * The file outputc1 shows what the output of this program 
