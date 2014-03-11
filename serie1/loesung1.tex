@@ -89,7 +89,24 @@ Postincrement: i = 1338, j = 1337
 
 \subsection{Aufgabe 6}
 Grösse des structs: 4 * 1 Byte + 2 * 1 Byte + 2 Byte = 8 Bytes \\
-Grösse des union: max( 8 * 1 Byte, 4 Byte, 2 Byte) = 8 Bytes
+Grösse des union: max( 8 * 1 Byte, 4 Byte, 2 Byte) = 8 Bytes \\\\
+Speicheraufteilung struct\\
+\begin{array}{|c|c|c|c|c|c|c|c|}
+\hline 
+d&d&c&b&a[3]&a[2]&a[1]&a[0]
+\hline
+\end{array}
+
+Speicheraufteilung union\\
+\begin{array}{|c|c|c|c|c|c|c|c|}
+\hline 
+a[7]/d[3]&a[6]/d[3]&a[5]/d[2]&a[4]/d[2]&a[3]/d[1]/b&a[2]/d[1]/b&a[1]/d[0]/b&a[0]/d[0]/b
+\hline
+\end{array}
+
+\subsection{Aufgabe 7}
+Define ist eine Art Search-Replace Mechanismus und findet vor dem Compilieren statt. (praktisch f"ur Konstanten)//
+Das Programmierst"uck gibt 3 aus.
 
 \section{Programmierteil}
 \lstinputlisting{src/cSerie1.c}
