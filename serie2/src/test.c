@@ -1,7 +1,7 @@
 /* TODO: Task (b) Please fill in the following lines, then remove this line.
  *
- * author(s):   FIRSTNAME LASTNAME 
- *              (FIRSTNAME2 LASTNAME2)
+ * author(s):   Dominik Bodenmann
+ *              Orlando Signer
  * modified:    2010-01-07
  *
  */
@@ -104,6 +104,16 @@ void test_lui() {
 /* LW */
 void test_lw() {
     /* TODO: Task (d) add test for LW here */
+    word location1 = 0x00001000;
+
+    word w = 0x87654321;
+    T0 = w;
+    T1 = location1;
+
+    storeWord(w, location1);
+    test_execute(create_itype_hex(0x0000, I_T0, I_T1, OC_LW));
+    printf(w);
+    assert(w == T1);
 } 
 
 /* ORI */

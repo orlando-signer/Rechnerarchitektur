@@ -203,7 +203,11 @@ void stopOperation(Instruction *instruction) {
 
 /* ADD */
 void mips_add(Instruction *instruction) {
-	/* TODO: Task (e) implement ADD here */
+    /* TODO: Task (e) implement ADD here */
+    InstructionTypeR r = instruction->r;
+    int rt = registers[r.rt];
+    int rs = registers[r.rs];
+    registers[r.rd] = rt + rs;
 }
 
 /* ADDI */
