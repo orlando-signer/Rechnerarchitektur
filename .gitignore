@@ -4,6 +4,7 @@
 # compiled files
 *.exe
 *.exe.stackdump
+*.o
 
 # tex files
 *.aux

@@ -1,7 +1,8 @@
 /* TODO: Task (b) Please fill in the following lines, then remove this line.
  *
- * author(s):   FIRSTNAME LASTNAME 
- *              (FIRSTNAME2 LASTNAME2)
+ * author(s):   Dominik Bodenmann
+ *		Orlando Signer 
+ *              
  * modified:    2010-01-07
  *
  */
@@ -81,6 +82,10 @@ void printInstruction(Instruction *i) {
 /* Store a word to memory */
 void storeWord(word w, word location) {
 	/* TODO: Task (c) implement storeWord here */
+	memory[location] = (w >> (8*3));
+	memory[location+1] = (w >> (8*2));
+	memory[location+2] = (w >> (8*1));
+	memory[location+3] = w;
 }
 
 /* Load a word from memory */
