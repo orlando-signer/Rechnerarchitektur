@@ -105,7 +105,6 @@ void test_lui() {
 void test_lw() {
     /* TODO: Task (d) add test for LW here */
     word location1 = 0x00001000;
-    word location2 = 0x000
 
     word w = 0x87654321;
     T1 = location1;
