@@ -68,28 +68,28 @@ void test_addi() {
 
 /* JAL */
 void test_jal() {
-      	int pcSaved;
-        word w;
-        Instruction* instruction;
+    int pcSaved;
+    word w;
+    Instruction* instruction;
 
-        pc = 0x00000000;
-        pcSaved = pc;
+    pc = 0x00000000;
+    pcSaved = pc;
 	test_execute(create_jtype_hex(0x0001, OC_JAL));
 	assert(RA == pcSaved + 4);
-        assert(pc == 4);
+    assert(pc == 4);
 
-        /* The following test is executed manually as the desired pc is outside the memory,
-         * i.e. the test needs to bypass actually storing the instruction in the memory.
-         */
+    /* The following test is executed manually as the desired pc is outside the memory,
+     * i.e. the test needs to bypass actually storing the instruction in the memory.
+     */
 	initialize();
-        pc = 0xAF000000;
+    pc = 0xAF000000;
 	pcSaved = pc;
-        w = create_jtype_hex(0x0001, OC_JAL);
-        instruction = (Instruction *) &w;
-        pc += 4;
-       	operations[instruction->i.opcode].operation(instruction);
+    w = create_jtype_hex(0x0001, OC_JAL);
+    instruction = (Instruction *) &w;
+    pc += 4;
+    operations[instruction->i.opcode].operation(instruction);
 	assert(RA == pcSaved + 4);
-        assert(pc == 0xA0000004);
+    assert(pc == 0xA0000004);
 }
 
 /* LUI */
@@ -105,15 +105,14 @@ void test_lui() {
 void test_lw() {
     /* TODO: Task (d) add test for LW here */
     word location1 = 0x00001000;
+    word location2 = 0x000
 
     word w = 0x87654321;
-    T0 = w;
     T1 = location1;
 
     storeWord(w, location1);
     test_execute(create_itype_hex(0x0000, I_T0, I_T1, OC_LW));
-    printf(w);
-    assert(w == T1);
+    assert(w == T0);
 } 
 
 /* ORI */
