@@ -117,6 +117,16 @@ void test_lw() {
 /* ORI */
 void test_ori() {
     /* TODO: Task (d) add test for ORI here */
+    word w = 0xAAAAAAAA; /* 0b1010.... */
+    T1 = w;
+    
+    test_execute(create_itype_hex(0x5555, I_T0, I_T1, OC_ORI)); /* 0x5555 0b0101... */
+    assert(0xAAAAFFFF == T0);
+    
+    w = 0xFFFF0000;
+    T1 = w;
+    test_execute(create_itype_hex(0xFFFF, I_T0, I_T1, OC_ORI));
+    assert(0xFFFFFFFF == T0);
 }
 
 /* SUB */
