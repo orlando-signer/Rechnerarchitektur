@@ -132,6 +132,26 @@ void test_ori() {
 /* SUB */
 void test_sub() {
     /* TODO: Task (d) add test for SUB here */
+    /* T0 = T2 -T1 */
+    T1=1;
+	T2=1;
+	test_execute(create_rtype_hex(FC_SUB, 0x0000, I_T0, I_T1, I_T2, OC_SUB));
+	assert(T0==0);
+	
+	T1=1;
+	T2=-1;
+	test_execute(create_rtype_hex(FC_SUB, 0x0000, I_T0, I_T1, I_T2, OC_SUB));
+	assert(T0==-2);
+    
+	T1=-1;
+	T2=1;
+	test_execute(create_rtype_hex(FC_SUB, 0x0000, I_T0, I_T1, I_T2, OC_SUB));
+	assert(T0==2);    
+	
+	T1=-1;
+	T2=-1;
+	test_execute(create_rtype_hex(FC_SUB, 0x0000, I_T0, I_T1, I_T2, OC_SUB));
+	assert(T0==0);
 }
 
 /* SW */
