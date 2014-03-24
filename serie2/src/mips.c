@@ -215,7 +215,7 @@ void mips_addi(Instruction *instruction) {
 	/* TODO: Task (e) implement ADDI here */
     InstructionTypeI i = instruction->i;
     int rs = registers[i.rs];
-    int immediate = signExtend(i.immediate);
+    int immediate = (signed) signExtend(i.immediate);
     registers[i.rt] = rs + immediate;
 }
 
@@ -231,6 +231,8 @@ void mips_jal(Instruction *instruction) {
 /* LUI */
 void mips_lui(Instruction *instruction) {
 	/* TODO: Task (e) implement LUI here */
+    InstructionTypeI i = instruction->i;
+    registers[i.rt] = i.immediate << 16;
 }
 
 /* LW */
@@ -254,5 +256,10 @@ void mips_sub(Instruction *instruction) {
 /* SW */
 void mips_sw(Instruction *instruction) {
 	/* TODO: Task (e) implement SW here */
+    InstructionTypeI i = instruction->i;
+    int location = registers[i.rs] + (signed) signExtend(i.immediate);
+    printf("location: %X; word:%X\n", location, registers[i.rt]);
+    storeWord(location, registers[i.rt]);
+    printf("loaded: %X\n", loadWordFrom(location));
 }
 
