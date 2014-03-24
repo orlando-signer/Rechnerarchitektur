@@ -21,7 +21,7 @@ word pc;
 int doRun;
 
 /* In case you want to watch the machine working */
-int verbose = FALSE;
+int verbose = TRUE;
 
 /* Operation and function dispatcher */
 Operation operations[OPERATION_COUNT];
@@ -213,11 +213,20 @@ void mips_add(Instruction *instruction) {
 /* ADDI */
 void mips_addi(Instruction *instruction) {
 	/* TODO: Task (e) implement ADDI here */
+    InstructionTypeI i = instruction->i;
+    int rs = registers[i.rs];
+    int immediate = signExtend(i.immediate);
+    registers[i.rt] = rs + immediate;
 }
 
 /* JAL */
 void mips_jal(Instruction *instruction) {
-	/* TODO: Task (e) implement JAL here */}
+	/* TODO: Task (e) implement JAL here */
+    InstructionTypeJ j = instruction->j;
+    /* We dont need to add 4 to the PC as it is incremented before the operation. */
+    RA = pc;
+    pc = (pc & 0xF0000000) + (j.address << 2);
+}
 
 /* LUI */
 void mips_lui(Instruction *instruction) {
