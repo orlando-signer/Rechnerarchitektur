@@ -33,52 +33,49 @@ C: 12
 \end{lstlisting}
 
 \subsection{Aufgabe 2}
-\begin{lstlisting}[caption=Eigenschaften]
-int * a: initialisiert in a einen Pointer auf einen Integer
-int const * b: initialisiert in b einen Pointer auf einen konstanten Integer
-int * const c: initialisiert in c einen konstanten Pointer auf einen Integer
-int const * const d: initialisiert in d einen konstanten Pointer auf einen konstanten Integer
-\end{lstlisting}
+int * a: initialisiert in a einen Pointer auf einen Integer\\
+int const * b: initialisiert in b einen Pointer auf einen konstanten Integer\\
+int * const c: initialisiert in c einen konstanten Pointer auf einen Integer\\
+int const * const d: initialisiert in d einen konstanten Pointer auf einen konstanten Integer\\
 
 \subsection{Aufgabe 3}
-\begin{lstlisting}[caption=Problem]
 Es sollte nur bis i=9 gehen (Indizes von 0 bis 9), d.h. es gibt einen Segmentation Fault.
-\end {lstlisting}
 
 \subsection{Aufgabe 4}
 \begin{lstlisting}[caption=C-Code]
-while \(($s_2 != $zero)\){
+while ($s2 != $zero){
 	do something;
-	\($s_2 -= $s_1;\)
+	$s2 -= $s1;
 }
 \end{lstlisting}
 
+\newpage
 \subsection{Aufgabe 5}
 \begin{lstlisting}[caption=Erweiterung]
-\(bge $s_2, $s_1, Label\) wird zu:
-\(slt $at, $s_2, $s_1\)
-\(beq $at, $zero, Label\)
+bge $s2, $s1, Label wird zu:
+slt $at, $s2, $s1
+beq $at, $zero, Label
 \end{lstlisting}
 
 \subsection{Aufgabe 6}
-\begin{lstlisting}[caption=Dezimalwert]
-Big Endian (Start bei der Adresse 10004):
-\((0110 1101 1000 1100 0010 0100 0000 0000)_2 = (1837900800)_10\)
-Little Endian (Start bei der Adresse 10007):
-\((0000 0000 0010 0100 10000 1100 01110 1101)_2 = (2395245)_10\)
-\end{lstlisting}
+Big Endian (Start bei der Adresse 10004):\\
+(0110 1101 1000 1100 0010 0100 0000 0000)_2 = (1837900800)_1_0\\
+$Little Endian (Start bei der Adresse 10007):\\
+(0000 0000 0010 0100 1000 1100 0110 1101)_2 = (2395245)_1_0\\
 
 \subsection{Aufgabe 7}
 \begin{lstlisting}[caption=Assembler]
-\(lw $t_3, $t_1(#t_2)\)
-\(mult $t_3, $t_0\)
-\(sw #LO, $t_1($t_2)\)
+lw $t3, $t1($t2)
+mult $t3, $t0
+sw $LO, $t1($t2)
 \end{lstlisting}
 
 \subsection{Aufgabe 8}
 \begin{lstlisting}[caption=Laden in Register]
-\(lw $s_2 9($s_1)\)
+lw $s2 9($s1)
 \end{lstlisting}
+
+\newpage
 
 \section{Programmierteil}
 \lstinputlisting[language=C, caption=mips.c]{src/mips.c}
