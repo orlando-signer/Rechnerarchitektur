@@ -42,8 +42,8 @@ int const * const d: initialisiert in d einen konstanten Pointer auf einen konst
 
 \subsection{Aufgabe 3}
 \begin{lstlisting}[caption=Problem]
-\end {lstlisting}
 Es sollte nur bis i=9 gehen (Indizes von 0 bis 9), d.h. es gibt einen Segmentation Fault.
+\end {lstlisting}
 
 \subsection{Aufgabe 4}
 \begin{lstlisting}[caption=C-Code]
@@ -69,10 +69,16 @@ Little Endian (Start bei der Adresse 10007):
 \end{lstlisting}
 
 \subsection{Aufgabe 7}
-\begin{lstlisting}[caption=Dezimalwert]
-
+\begin{lstlisting}[caption=Assembler]
+\(lw $t_3, $t_1(#t_2)\)
+\(mult $t_3, $t_0\)
+\(sw #LO, $t_1($t_2)\)
 \end{lstlisting}
 
+\subsection{Aufgabe 8}
+\begin{lstlisting}[caption=Laden in Register]
+\(lw $s_2 9($s_1)\)
+\end{lstlisting}
 
 \section{Programmierteil}
 \lstinputlisting[language=C, caption=mips.c]{src/mips.c}
