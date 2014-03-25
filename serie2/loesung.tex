@@ -46,7 +46,30 @@ int const * const d: initialisiert in d einen konstanten Pointer auf einen konst
 Es sollte nur bis i=9 gehen (Indizes von 0 bis 9), d.h. es gibt einen Segmentation Fault.
 
 \subsection{Aufgabe 4}
-\begin{lstlisting}[caption=Ausgabe]
+\begin{lstlisting}[caption=C-Code]
+while (\($s_2 != $zero\)){
+	do something;
+	\($s_2 -= $s_1;\)
+}
+\end{lstlisting}
+
+\subsection{Aufgabe 5}
+\begin{lstlisting}[caption=Erweiterung]
+\(bge $s_2, $s_1, Label\) wird zu:
+\(slt $at, $s_2, $s_1\)
+\(beq $at, $zero, Label\)
+\end{lstlisting}
+
+\subsection{Aufgabe 6}
+\begin{lstlisting}[caption=Dezimalwert]
+Big Endian (Start bei der Adresse 10004):
+\((0110 1101 1000 1100 0010 0100 0000 0000)_2 = (1837900800)_10\)
+Little Endian (Start bei der Adresse 10007):
+\((0000 0000 0010 0100 10000 1100 01110 1101)_2 = (2395245)_10\)
+\end{lstlisting}
+
+\subsection{Aufgabe 7}
+\begin{lstlisting}[caption=Dezimalwert]
 
 \end{lstlisting}
 
