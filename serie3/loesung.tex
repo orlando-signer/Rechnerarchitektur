@@ -41,8 +41,9 @@ Eine CPU, bei der die ALU doppelt so schnell arbeitet, ist also $ 2.75/3.0 -1 = 
 
 \subsection{Aufgabe 2}
 \begin{enumerate}
-\item Darauf kann die R"ucksprungadresse f"ur die Vortsetzung der Programmbearbeitung gespeichert werden.
-\item Darauf k"onnen die Aufrufparameter gelegt werden, damit sie von der Subroutine gelesen werden k"onnen.
+	\item Darauf kann die R"ucksprungadresse f"ur die Vortsetzung der Programmbearbeitung gespeichert werden.
+	\item Darauf k"onnen die Aufrufparameter gelegt werden, damit sie von der Subroutine gelesen werden k"onnen.
+\end{enumerate}
 
 \subsection{Aufgabe 3}
 Damit der Overflow behandelt werden kann:
@@ -60,8 +61,13 @@ Vorzeichen A & Vorzeichen B & Binvert & Carry out & Vorz. Result. & Korr. Vorz. 
 \hline\end{array}
 Die ersten 5 Argumente werden f"ur die Overflowdetection gebraucht. 
 Ist das Binvert Bit nicht gleich dem Carry out Bit, so gibt es einen Overflow. (Bei ALU31, da da die Vorzeichen abgespeichert sind)
-)
+
 \subsection{Aufgabe 4}
+\begin{itemize}
+	\item Beim slt-Befehl wird a-b gerechnet. Falls a-b < 0 erh"alt man im Vorzeichenbit (ALU31) eine 1.
+	\item Die ALU unterst"utzt diesen Befehl, indem sie das Set des ALU31 Bits mit dem Less des ALU0 Bits verbindet. 
+	Alle anderen Less sind 0;
+\end{itemize}
 
 \subsection{Aufgabe 5}
 
