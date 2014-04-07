@@ -130,6 +130,7 @@ void initializeMemory() {
 /* Load a file to memory */
 void loadFile(char* filename) {
     /* TODO: Task (d) implement loadFile */
+    fopen(filename, "r");
 }
 
 /* ========================================================================== */
