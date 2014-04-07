@@ -15,11 +15,12 @@
 int main ( int argc, char** argv ) {
     /* TODO: Task (c) implement main */
 	if (argc != 3) {
-		printf("usage: %s expression filename", argv[0]);
+		printf("usage: <%s> expression filename\n", argv[0]);
 		return EXIT_FAILURE;
 	}
 	char * expression = argv[1];
 	char * filename = argv[2];
+	compiler(expression, filename);
 	return EXIT_SUCCESS;
 }
 
