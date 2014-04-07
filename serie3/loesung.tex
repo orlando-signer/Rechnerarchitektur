@@ -27,7 +27,7 @@
 \section{Theorie-Teil}
 \subsection{Aufgabe 1}
 \begin{array}{l|c|c|c|c||c|c||c|c|}
- & t & Freq & CPI & Freq*CPI & CPI & Freq*CPI & CPI & Freq*CPI
+ & t & Freq & CPI & Freq*CPI & CPI & Freq*CPI & CPI & Freq*CPI\\
 \hline
 ALU & 5nsec & 25\% & 2 & 0.5 & 2 & 0.5 & {\bf 1} & 0.25\\
 LOAD & 10nsec & 25\% & 4 & 1.0 & {\bf 6} & 1.5 & 4 & 1.0\\
@@ -45,7 +45,22 @@ Eine CPU, bei der die ALU doppelt so schnell arbeitet, ist also $ 2.75/3.0 -1 = 
 \item Darauf k"onnen die Aufrufparameter gelegt werden, damit sie von der Subroutine gelesen werden k"onnen.
 
 \subsection{Aufgabe 3}
-
+Damit der Overflow behandelt werden kann:
+\begin{array}{|c|c|c|c|c|c|c|}
+Vorzeichen A & Vorzeichen B & Binvert & Carry out & Vorz. Result. & Korr. Vorz. Res. & Overflow\\
+\hline
+0&0&0&0&0&0&0\\
+0&0&1&0&1&0&1\\
+0&1&0&0&1&1&0\\
+0&1&1&1&0&0&0\\
+1&0&0&0&1&1&0\\
+1&0&1&1&0&0&0\\
+1&1&0&1&0&1&1\\
+1&1&1&1&1&1&0\\
+\hline\end{array}
+Die ersten 5 Argumente werden f"ur die Overflowdetection gebraucht. 
+Ist das Binvert Bit nicht gleich dem Carry out Bit, so gibt es einen Overflow. (Bei ALU31, da da die Vorzeichen abgespeichert sind)
+)
 \subsection{Aufgabe 4}
 
 \subsection{Aufgabe 5}
