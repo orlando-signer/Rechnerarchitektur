@@ -13,3 +13,6 @@
 *.synctex
 *.out
 *.dvi
+
+# stupid editor files
+*.c~
