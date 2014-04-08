@@ -131,27 +131,33 @@ void initializeMemory() {
 void loadFile(char* filename) {
     /* TODO: Task (d) implement loadFile */
     int i;
-    word *w;
     FILE *file;
-    int c;
-    char buf[4];
+    char *buffer = 0;
+    long length;
+    byte* ram;
 
+
+    // Reading the file in the buffer
     file = fopen(filename, "rb");
-    printf("loading file\n");
-    printf("filename: %s\n", filename);
-
-    if (file != NULL) {
-        printf("file not null\n");
-        fgetc(file);
-        printf("fgetc successful!");
-        while ((c = fgetc(file)) != EOF)
-            putchar(c);
-    
-   /* for (i=0; i<4; i++) {
-        buf[i] = (w >> (8*(4-(i+1)))) & 0xFF;
-    }*/
+    if (file) {
+        fseek (file, 0, SEEK_END);
+        length = ftell (file);
+        fseek (file, 0, SEEK_SET);
+        buffer = malloc (length);
+        if (buffer)
+            fread (buffer, 1, length, file);
     }
     fclose(file);
+
+    
+    // Create store characters in the memory
+    if (buffer) {
+        ram = defaultMemoryData;
+        for (i = 0; i < length; i++) {
+            *ram = (unsigned) buffer[i];
+            ram += 1;
+        }
+    }
 }
 
 /* ========================================================================== */
