@@ -26,6 +26,7 @@
 
 \section{Theorie-Teil}
 \subsection{Aufgabe 1}
+$
 \begin{array}{l|c|c|c|c||c|c||c|c|}
  & t & Freq & CPI & Freq*CPI & CPI & Freq*CPI & CPI & Freq*CPI\\
 \hline
@@ -36,6 +37,8 @@ Branch & 7.5nsec & 25\% & 3 & 0.75 & 3 & 0.75 & 1 & 0.75\\
 \hline
  & & & & 3.0 & & 3.5 & & 2.75
  \end{array}
+$
+
 Eine Maschine, die f"ur die LOAD Instruktion 6 Taktzyklen braucht, ist also $ 3.5/3.0 - 1 = 16.7\% $ langsamer.\\
 Eine CPU, bei der die ALU doppelt so schnell arbeitet, ist also $ 2.75/3.0 -1 = 8.3\% $ schneller.
 
@@ -46,7 +49,8 @@ Eine CPU, bei der die ALU doppelt so schnell arbeitet, ist also $ 2.75/3.0 -1 = 
 \end{enumerate}
 
 \subsection{Aufgabe 3}
-Damit der Overflow behandelt werden kann:
+Damit der Overflow behandelt werden kann: \\
+$
 \begin{array}{|c|c|c|c|c|c|c|}
 Vorzeichen A & Vorzeichen B & Binvert & Carry out & Vorz. Result. & Korr. Vorz. Res. & Overflow\\
 \hline
@@ -59,6 +63,7 @@ Vorzeichen A & Vorzeichen B & Binvert & Carry out & Vorz. Result. & Korr. Vorz. 
 1&1&0&1&0&1&1\\
 1&1&1&1&1&1&0\\
 \hline\end{array}
+$ \\
 Die ersten 5 Argumente werden f"ur die Overflowdetection gebraucht. 
 Ist das Binvert Bit nicht gleich dem Carry out Bit, so gibt es einen Overflow. (Bei ALU31, da da die Vorzeichen abgespeichert sind)
 
