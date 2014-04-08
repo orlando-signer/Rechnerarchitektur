@@ -35,7 +35,7 @@ LOAD & 10nsec & 25\% & 4 & 1.0 & {\bf 6} & 1.5 & 4 & 1.0\\
 STORE & 7.5nsec & 25\% & 3 & 0.75 & 3 & 0.75 & 1 & 0.75\\
 Branch & 7.5nsec & 25\% & 3 & 0.75 & 3 & 0.75 & 1 & 0.75\\
 \hline
- & & & & 3.0 & & 3.5 & & 2.75\\
+ & & & & 3.0 & & 3.5 & & 2.75
 \hline\end{array}
 $
 \\
@@ -71,38 +71,41 @@ Ist das B invert Bit nicht gleich dem Carry out Bit, so gibt es einen Overflow. 
 
 \subsection{Aufgabe 4}
 \begin{itemize}
-	\item Beim slt-Befehl wird a-b gerechnet. Falls & a-b < 0 & erh"alt man im Vorzeichenbit (ALU31) eine 1.
+	\item Beim slt-Befehl wird a-b gerechnet. Falls $ a-b < 0 $ erh"alt man im Vorzeichenbit (ALU31) eine 1.
 	\item Die ALU unterst"utzt diesen Befehl, indem sie das Set des ALU31 Bits mit dem Less des ALU0 Bits verbindet. 
 	Alle anderen Less sind 0;
 \end{itemize}
 
 \subsection{Aufgabe 5}
-\begin{lstlisting}[caption=MIPS push und pop]
-# Push und pop auf dem Stack. $sp bezeichnet den Stackpointer.
-push:
-subi $sp $sp 4
-sw  $t0 0($sp)
-
-pop:
-lw $t0 0($sp)
-addi $sp $sp 4
-\end{lstlisting}
-$
 
 \subsection{Aufgabe 6}
 
 \subsection{Aufgabe 7}
-
-\newpage
-
-\section{Programmierteil}
-\lstinputlisting[language=C, caption=compile.c]{src/compile.c}
-\newpage
-\lstinputlisting[language=C, caption=mips.c]{src/mips.c}
-\newpage
-\lstinputlisting[language=C, caption=memory.c]{src/memory.c}
-\newpage
-
+$\begin{array}{}
+Befehl & A invert & B invert & Operation\\
+\hline
+and &0&0&0&0\\
+or &0&0&0&1\\
+add &0&0&1&0\\
+subtract &0&1&1&0\\
+slt &0&1&1&1\\
+nor &1&1&0&0\\
+\hline
+\end{array}$\\
+\begin{itemize}
+	\item[and] Mit dem Opcode 00 wird der erste Eingand des Operationsmuxes (das AND-Gatter) angesteuert, 
+	und somit muss A und B nicht invertiert werden.
+	\item[or] Gleich wie oben. Mit dem Opcode 01 kann direkt der zweite Eingang des Operationsmuxes (das OR-Gatter) 
+	angesteuert werden, und somit m"ussen A und B wiederum nicht invertiert werden.
+	\item[add] Wiederum kann mit dem Opcode 10 der dritte Eingang des Operationsmuxes (Addition) angesteuert werden, 
+	und Aund B m"ussen wiederum nicht invertiert werden.
+	\item[subtract] Wenn man b negiert (also invertiert) kann man einfach noch eine Addition ausf"uhren (Opcode 10)
+	\item[slt] Es wird wieder $a-b$ gerechnet (siehe subtract). Also B invertieren. 
+	Falls B gr"osser als A ist, soll das 31ste Bit den Wert 1 haben, welcher ebenfalls aufs erste Bit zur"uckgef"uhrt wird. 
+	Damit kann man beim Operationsmux den vierten Eingang (Opcode 11) w"ahlen, und erh"alt nun als Ausgabe eine 1, 
+	falls B gr"osser als A ist und sonst eine 0.
+	\item[nor] Da $ a NOR b = not a AND not b $ ist, kann man A und B invertieren und das AND-Gatter (Opcode 00) anlegen.
+\end{itemize}
 
 
 \end{document}
