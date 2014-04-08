@@ -136,7 +136,6 @@ void loadFile(char* filename) {
     long length;
     byte* ram;
 
-
     // Reading the file in the buffer
     file = fopen(filename, "rb");
     if (file) {
@@ -149,7 +148,6 @@ void loadFile(char* filename) {
     }
     fclose(file);
 
-    
     // Create store characters in the memory
     if (buffer) {
         ram = defaultMemoryData;

@@ -33,6 +33,9 @@ Function functions[FUNCTION_COUNT];
 
 void error(const char *functionName, const char *fileName, int lineNumber, char *message, ...) {
    /* TODO: Task (e) implement error */
+   printf("%s in %s, line %i: %s\n", functionName, fileName, lineNumber, message);
+   
+   exit(EXIT_FAILURE);
 }
 
 
