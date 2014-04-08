@@ -77,6 +77,17 @@ Ist das B invert Bit nicht gleich dem Carry out Bit, so gibt es einen Overflow. 
 \end{itemize}
 
 \subsection{Aufgabe 5}
+\begin{lstlisting}[caption=MIPS push und pop]
+# Push und pop auf dem Stack. $sp bezeichnet den Stackpointer.
+push:
+subi $sp $sp 4
+sw  $t0 0($sp)
+
+pop:
+lw $t0 0($sp)
+addi $sp $sp 4
+\end{lstlisting}
+$
 
 \subsection{Aufgabe 6}
 
@@ -107,5 +118,13 @@ nor &1&1&0&0\\
 	\item[nor] Da $ a NOR b = not a AND not b $ ist, kann man A und B invertieren und das AND-Gatter (Opcode 00) anlegen.
 \end{itemize}
 
+\newpage
+
+\section{Programmierteil}
+\lstinputlisting[language=C, caption=compile.c]{src/compile.c}
+\newpage
+\lstinputlisting[language=C, caption=mips.c]{src/mips.c}
+\newpage
+\lstinputlisting[language=C, caption=memory.c]{src/memory.c}
 
 \end{document}
