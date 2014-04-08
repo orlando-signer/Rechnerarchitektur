@@ -130,7 +130,28 @@ void initializeMemory() {
 /* Load a file to memory */
 void loadFile(char* filename) {
     /* TODO: Task (d) implement loadFile */
-    fopen(filename, "r");
+    int i;
+    word *w;
+    FILE *file;
+    int c;
+    char buf[4];
+
+    file = fopen(filename, "rb");
+    printf("loading file\n");
+    printf("filename: %s\n", filename);
+
+    if (file != NULL) {
+        printf("file not null\n");
+        fgetc(file);
+        printf("fgetc successful!");
+        while ((c = fgetc(file)) != EOF)
+            putchar(c);
+    
+   /* for (i=0; i<4; i++) {
+        buf[i] = (w >> (8*(4-(i+1)))) & 0xFF;
+    }*/
+    }
+    fclose(file);
 }
 
 /* ========================================================================== */
