@@ -36,11 +36,13 @@ STORE & 7.5nsec & 25\% & 3 & 0.75 & 3 & 0.75 & 1 & 0.75\\
 Branch & 7.5nsec & 25\% & 3 & 0.75 & 3 & 0.75 & 1 & 0.75\\
 \hline
  & & & & 3.0 & & 3.5 & & 2.75
- \end{array}
+\hline\end{array}
 $
-
-Eine Maschine, die f"ur die LOAD Instruktion 6 Taktzyklen braucht, ist also $ 3.5/3.0 - 1 = 16.7\% $ langsamer.\\
-Eine CPU, bei der die ALU doppelt so schnell arbeitet, ist also $ 2.75/3.0 -1 = 8.3\% $ schneller.
+\\
+\begin{enumerate}
+	\item Eine Maschine, die f"ur die LOAD Instruktion 6 Taktzyklen braucht, ist also\\$ 3.5/3.0 - 1 = 16.7\% $ langsamer.
+	\item Eine CPU, bei der die ALU doppelt so schnell arbeitet, ist also\\$ 2.75/3.0 -1 = 8.3\% $ schneller.
+\end{enumerate}
 
 \subsection{Aufgabe 2}
 \begin{enumerate}
@@ -49,10 +51,10 @@ Eine CPU, bei der die ALU doppelt so schnell arbeitet, ist also $ 2.75/3.0 -1 = 
 \end{enumerate}
 
 \subsection{Aufgabe 3}
-Damit der Overflow behandelt werden kann: \\
+Damit der Overflow behandelt werden kann: \\\\
 $
 \begin{array}{|c|c|c|c|c|c|c|}
-Vorzeichen A & Vorzeichen B & Binvert & Carry out & Vorz. Result. & Korr. Vorz. Res. & Overflow\\
+Vorzeichen A & Vorzeichen B & B invert & Carry out & Vorz. Result. & Korr. Vorz. Res. & Overflow\\
 \hline
 0&0&0&0&0&0&0\\
 0&0&1&0&1&0&1\\
@@ -63,13 +65,13 @@ Vorzeichen A & Vorzeichen B & Binvert & Carry out & Vorz. Result. & Korr. Vorz. 
 1&1&0&1&0&1&1\\
 1&1&1&1&1&1&0\\
 \hline\end{array}
-$ \\
+$ \\\\
 Die ersten 5 Argumente werden f"ur die Overflowdetection gebraucht. 
-Ist das Binvert Bit nicht gleich dem Carry out Bit, so gibt es einen Overflow. (Bei ALU31, da da die Vorzeichen abgespeichert sind)
+Ist das B invert Bit nicht gleich dem Carry out Bit, so gibt es einen Overflow. (Bei ALU31, da da die Vorzeichen abgespeichert sind)
 
 \subsection{Aufgabe 4}
 \begin{itemize}
-	\item Beim slt-Befehl wird a-b gerechnet. Falls a-b < 0 erh"alt man im Vorzeichenbit (ALU31) eine 1.
+	\item Beim slt-Befehl wird a-b gerechnet. Falls & a-b < 0 & erh"alt man im Vorzeichenbit (ALU31) eine 1.
 	\item Die ALU unterst"utzt diesen Befehl, indem sie das Set des ALU31 Bits mit dem Less des ALU0 Bits verbindet. 
 	Alle anderen Less sind 0;
 \end{itemize}
