@@ -36,9 +36,9 @@ Eingabe & Ausgabe \\
 \hline
 $0xFE \& 0xEF$ & $0xEE$\\\hline
 $0xFE \&\& 0xEF$ & 1\\\hline
-$0xFE \| 0xEF$ & $0xFF$\\\hline
-$0xFE \|\| 0xEF$ & 1\\\hline
-$\~0xFE$ & $-0xFF$\\\hline
+$0xFE$ | $0xEF$ & $0xFF$\\\hline
+$0xFE$ || $0xEF$ & 1\\\hline
+$\~ 0xFE$ & $-0xFF$\\\hline
 $!0xFE$ & 0\\\hline
 \end{array}
 \subsection{Aufgabe 3}
@@ -51,6 +51,7 @@ Als Beispiel: Die Switches des Boards, die, je nachdem wie sie gestellt sind, ei
 	\item{Multicycle-Implementation} Analog Singlecycle-Implementation.
 \end{enumerate}
 \\
+
 \subsection{Aufgabe 5}
 Um die Daten, die f"ur den n"achsten Rechenschritt gebraucht werden, zwischenzuspeichern, da die 
 n"achste Berechnungsstufe m"oglicherweise noch nicht zur Verf"ugung steht.
