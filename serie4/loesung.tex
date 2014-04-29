@@ -31,20 +31,21 @@ angegeben wird, braucht es negative Werte.\\
 Ebenfalls bei den Load und Store Befehlen kann der Offset zur Basisadresse negativ sein.
 \subsection{Aufgabe 2}
 \begin{array}{|c|c|}
+\hline
 Eingabe & Ausgabe \\
 \hline
-0xFE \& 0xEF & 0xEE\\\hline
-0xFE \&\& 0xEF & 1\\\hline
-0xFE | 0xEF & 0xFF\\\hline
-0xFE || 0xEF & 1\\\hline
-~0xFE & -0xFF\\\hline
-!0xFE & 0\\\hline
+$0xFE \& 0xEF$ & $0xEE$\\\hline
+$0xFE \&\& 0xEF$ & 1\\\hline
+$0xFE | 0xEF$ & $0xFF$\\\hline
+$0xFE || 0xEF$ & 1\\\hline
+$\~0xFE$ & $-0xFF$\\\hline
+$!0xFE$ & 0\\\hline
 \end{array}
 \subsection{Aufgabe 3}
 Mittels Schnittstellen, an denen die Hardware entsprechende Informationen zur Verf"ugung stellt.\\
 Als Beispiel: Die Switches des Boards, die, je nachdem wie sie gestellt sind, ein Feld entweder mit 0 oder 1 f"ullen.
 \subsection{Aufgabe 4}
-\begin{enumerate}[a)]
+\begin{enumerate}
 	\item{Singlecycle-Implementation} Das Resultat einfach invertieren, falls die ALU beim 
 	Vergleich 0 zur"uck gibt. (NOT-Gatter am 0-Ausgang der ALU)
 	\item{Multicycle-Implementation} Analog Singlecycle-Implementation.
