@@ -55,7 +55,8 @@ _start:
 	movi		r16, 1
 	wrctl		status, r16
 	
-	/* r17 stores the active LED
+	/* r15 stores the memory address for the LEDs
+	 * r17 stores the active LED
 	 * r18 the direction to move (0 -> downwards, 1 -> upwards)
 	 * r19 stores the delay-time
 	 * r20 and r21 are for temporary use
@@ -63,7 +64,7 @@ _start:
 	
 	/* Initialize first red LED (light up) */
 	movia		r15, RED_LED_BASE		
-	movi		r17, 0x1		# Code for first LED
+	movi		r17, 0x1		# Bitmask for first LED
 	movi		r18, 0x0		# Direction bit (will be inverted first)
 	movia		r19, 0xC8		# Wait 0xC8 = 200 msecs
 	
@@ -80,21 +81,21 @@ _start:
 	br			MOVE_DOWN					# else MOVE_DOWN
 	
 	MOVE_UP:
-	stwio		r17, 0(r15)					# Display current position
+	stwio		r17, 0(r15)					# Write LED-Bitmask to memory
 	slli		r17, r17, 0x1				# left-shift the value by one
 	br			DELAY						# Delay the next output
 	
 	MOVE_DOWN:
-	stwio		r17, 0(r15)					# Display current position
+	stwio		r17, 0(r15)					# Write LED-Bitmask to memory
 	srai		r17, r17, 0x1				# right-shift the value by one
 	br			DELAY						# Delay the next output
 	
 	DELAY:
 	movia		r20, TIME
 	ldwio		r21, 0(r20)					# Get the Time from the Counter
-	blt			r20, r19, DELAY				# Check if we already waited more than (r19) steps
+	blt			r20, r19, DELAY				# Check if we waited more than (r19) steps (go to DELAY else)
 	stwio		r0, 0(r20)					# Reset Time counter
-	br			CHECK_BORDER				# Go to check the borders
+	br			CHECK_BORDER				# Go to check the borders (--> start again)
 	
 	INVERT_DIRECTION:
 	xori		r18, r18, 0x1				# Invert the direction
