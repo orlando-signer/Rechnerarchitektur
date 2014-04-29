@@ -63,12 +63,10 @@ n"achste Berechnungsstufe m"oglicherweise noch nicht zur Verf"ugung steht.
 Auf Folie 19 werden die Resultate aus dem 4. Cycle der beq Instruction bereits im ersten Cycle der lw instruction gebraucht.\\
 Auf Folie 15 ist dies nur mit Abstand 2 der Fall.
 \subsection{Aufgabe 8}
-\begin{lstlisting}
-add \$t1, \$t2, \$t3
-sub \$t4, \textbf{\$t1} (Forwarding), \$t2
-lw \$s2, \textbf{200(\$t1)} (Forwarding)
-add \$s3, \$t1 ,\textbf{\$s2} (Stall)
-\end{lstlisting}
+add \$t1, \$t2, \$t3 \\
+sub \$t4, \textbf{\$t1} (Forwarding), \$t2 \\
+lw \$s2, \textbf{200(\$t1)} (Forwarding) \\
+add \$s3, \$t1 ,\textbf{\$s2} (Stall) \\
 
 \newpage
 \section{Praktischer Teil}
