@@ -17,24 +17,30 @@
 .global PUSHBUTTON_ISR
 PUSHBUTTON_ISR:
 
-	movia	r17, PUSHBUTTON_BASE
-	ldwio		r20, 0xC(r17)			# read register with values of buttons
-	stwio		r0, 0xC(r17)			# clear the interrupt
+	/* r17 holds the current phase (1=Init 2=Playing 3=Finished) */
+	/* r19, r20 are variables for free usage (no global usage). */
+	/* We use r20 to store the pressed buttons */
 
-	movia		r17, 0b1000
-	beq			r20, r17, SPEED_UP		# Check if KEY3 was pressed
-	movia		r17, 0b100
-	beq			r20, r17, SPEED_DEFAULT	# Check if KEY2 was pressed
-	movia		r17, 0b10
-	beq			r20, r17, SLOW_DOWN		# Check if KEY1 was pressed
-	br			SPEED_DEFAULT			# Default (if everything is broken)
+	movia		r19, PUSHBUTTON_BASE
+	ldwio		r20, 0xC(r19)			# store pressed buttons in r20
+	stwio		r0, 0xC(r19)			# clear the interrupt
+
+	movi		r19, 0x1
+	beq			r17, r19, INIT_CHECK	# If we're in Phase 1, perform INIT_CHECK
+	
+	/* Init check. If both K1 and K3 are pressed, start the game. else simply return */
+	INIT_CHECK:
+	/* TODO start when k1 AND k3 are pressed, not only k3 */
+	movi	r19, 0x8
+	beq		r20, r19, START_GAME		# if only K1 and K3 are pressed, start the game
+	ret									# else just return
+	
+	START_GAME:
+	movia		r17, 0x2
+	ret
 
 	SPEED_UP:
-	subi		r21, r21, 0x50			# Subtract a fixed amount to the current waiting time
-	ret
-	
-	SLOW_DOWN:
-	addi		r21, r21, 0x50			# Add a fixed amount to the current waiting time
+	subi		r21, r21, 0x5			# Subtract a fixed amount to the current waiting time
 	ret
 	
 	SPEED_DEFAULT:

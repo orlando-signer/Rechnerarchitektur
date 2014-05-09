@@ -56,27 +56,56 @@ _start:
 	wrctl		status, r16
 	
 	/* r16 holds the value for the blinking LED (the position of the ball) */
-	/* r17 holds the current phase (1=Init 2=Playing 3=Finished) */
-	/* r18 is used to keep track of the direction */
+	/* r17 holds the current phase (1=Init 2=Start game 3=Play game) */
+	/* r18 is used to keep track of the direction (if 1, go up, else down)*/
 	/* r19, r20 are variables for free usage (no global usage) */
-	/* r21 stores the amount of time we want to wait each step */
+	/* r21 stores the amount of time we want to wait each step (speed of the ball) */
+	/* r22/r22 stores the points for player 1 and 2 */
 	
 	/* Initialize first red LED (light up) */
+	INIT:
 	movia		r15, RED_LED_BASE		
 	movi		r16, 0x1		# Code for first LED
 	movi		r18, 0x0		# Direction bit (will be inverted first)
-	movi		r17, 0x1
-	movia		r21, 0x1F4		# How long to wait each step
+	movi		r17, 0x1		# Set init phase
+	movi		r21, 0x1F4		# How long to wait each step
 	
 	CHECK_PHASE:
 	movi 		r19, 0x1
-	beq			r17, r19, INIT
+	beq			r17, r19, INIT_GAME
+	movi		r19, 0x2
+	beq			r17, r19, START_GAME
+	movi		r19, 0x3
+	beq			r17, r19, PLAY_GAME
+	br			INIT					# if something is messed up, go back to init phase
 	
 	/* Init phase: blinking LEDR4 and LEDR5 until both players press KEY1 and KEY3 */
-	INIT:
-	movi		r16, 0x10
-	stwio		r16, 0(r15)
-	br			DELAY
+	INIT_GAME:
+	movi		r19, 0x10					# Store value for L4
+	beq			r16, r19, SHOW_L5			# Check if only L4 is active. SHOW_L5 if true
+	br			SHOW_L4						# Else jump to SHOW_L4
+	
+	SHOW_L4:
+	movi		r16, 0x10					# Store value for L4
+	stwio		r16, 0(r15)					# Display LEDs
+	br			DELAY						# Jump to delay
+	
+	SHOW_L5:
+	movi		r16, 0x20					# Store value for L5
+	stwio		r16, 0(r15)					# Display LEDs
+	br			DELAY						# Jump to delay
+	
+	/* Start the game */
+	START_GAME:
+	movi		r21, 0x1F4					# Reset game speed
+	cmpgei		r18, r16, 0x20				# set the direction.
+	movi		r17, 0x3
+	br 			DELAY
+
+	PLAY_GAME:
+	br			DO_DISPLAY_1
+	
+	
 	
 	DO_DISPLAY_1:
 	movi		r19, 0x1
@@ -104,9 +133,10 @@ _start:
 	ldwio		r20, 0(r19)					# Get the Time from the Counter
 	blt			r20, r21, DELAY				# Check if we already waited more than (r21) seconds
 	stwio		r0, 0(r19)					# Reset Time counter
-	br			CHECK_PHASE				# Go to display the next position
+	br			CHECK_PHASE					# Go to display the next position
 	
 	INVERT_DIRECTION:
+	subi		r21, r21, 0x5				# Subtract a fixed amount to the current waiting time
 	xori		r18, r18, 0x1				# Invert the direction after we hit the border
 	br			DO_DISPLAY_2
 	
