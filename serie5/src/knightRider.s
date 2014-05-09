@@ -56,11 +56,12 @@ _start:
 	wrctl		status, r16
 	
 	/* r16 holds the value for the blinking LED (the position of the ball) */
-	/* r17 holds the current phase (1=Init 2=Start game 3=Play game) */
+	/* r17 holds the current phase (1=Init 3=Play game) */
 	/* r18 is used to keep track of the direction (if 1, go up, else down)*/
 	/* r19, r20 are variables for free usage (no global usage) */
 	/* r21 stores the amount of time we want to wait each step (speed of the ball) */
-	/* r22/r22 stores the points for player 1 and 2 */
+	/* r22 stores the points for player 1 and 2 (4 MSB for player 1, 4 LSB for player 2) */
+	/* r23 stores the button presses (0b1000 k3 pressed, 0b0010 k1 pressed, 0b1010 both pressed) */
 	
 	/* Initialize first red LED (light up) */
 	INIT:
@@ -68,19 +69,21 @@ _start:
 	movi		r16, 0x1		# Code for first LED
 	movi		r18, 0x0		# Direction bit (will be inverted first)
 	movi		r17, 0x1		# Set init phase
-	movi		r21, 0x1F4		# How long to wait each step
+	movi		r21, 0x500		# How long to wait each step (0x1F4 = 500)
+	movi		r23, 0x0		# reset score
 	
 	CHECK_PHASE:
+	mov			r24, r0			# reset pressed buttons
 	movi 		r19, 0x1
 	beq			r17, r19, INIT_GAME
-	movi		r19, 0x2
-	beq			r17, r19, START_GAME
 	movi		r19, 0x3
 	beq			r17, r19, PLAY_GAME
 	br			INIT					# if something is messed up, go back to init phase
 	
 	/* Init phase: blinking LEDR4 and LEDR5 until both players press KEY1 and KEY3 */
 	INIT_GAME:
+	movi		r19, 0b1010
+	beq			r23, r19, START_GAME		# if k1 and k3 are pressed, start the game
 	movi		r19, 0x10					# Store value for L4
 	beq			r16, r19, SHOW_L5			# Check if only L4 is active. SHOW_L5 if true
 	br			SHOW_L4						# Else jump to SHOW_L4
@@ -97,15 +100,14 @@ _start:
 	
 	/* Start the game */
 	START_GAME:
+	break
 	movi		r21, 0x1F4					# Reset game speed
 	cmpgei		r18, r16, 0x20				# set the direction.
-	movi		r17, 0x3
+	movi		r17, 0x3					# Set phase 3
 	br 			DELAY
 
 	PLAY_GAME:
-	br			DO_DISPLAY_1
-	
-	
+	br			DO_DISPLAY_1	
 	
 	DO_DISPLAY_1:
 	movi		r19, 0x1
