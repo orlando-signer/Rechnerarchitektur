@@ -184,11 +184,15 @@ _start:
 	
 	PLAYER_1_WIN:
 	movi		r17, 0x4					# set phase 4
+	movi		r16, 0b1111
+	stwio		r16, 0(r15)					# Display 4 leds for p1
 	br			DELAY
 	
 	
 	PLAYER_2_WIN:
 	movi		r17, 0x4					# set phase 4
+	movi		r16, 0b1111000000
+	stwio		r16, 0(r15)					# Display 4 leds for p2
 	br			DELAY
 	
 	FINISHED_GAME:
