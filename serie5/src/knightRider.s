@@ -60,7 +60,7 @@ _start:
 	/* r18 is used to keep track of the direction (if 1, go up, else down)*/
 	/* r19, r20 are variables for free usage (no global usage) */
 	/* r21 stores the amount of time we want to wait each step (speed of the ball) */
-	/* r22 stores the points for player 1 and 2 (4 MSB for player 1, 4 LSB for player 2) */
+	/* r22 stores the points for player 1 and 2 (bit 0 to 3 for player 1, bit 4 to 7 for player 2) */
 	/* r23 stores the button presses (0b1000 k3 pressed, 0b0010 k1 pressed, 0b1010 both pressed) */
 	
 	/* Initialize first red LED (light up) */
@@ -70,7 +70,7 @@ _start:
 	movi		r18, 0x0		# Direction bit (will be inverted first)
 	movi		r17, 0x1		# Set init phase
 	movi		r21, 0x500		# How long to wait each step (0x1F4 = 500)
-	movi		r23, 0x0		# reset score
+	movi		r22, 0x0		# reset score
 	
 	CHECK_PHASE:
 	mov			r24, r0			# reset pressed buttons
@@ -100,11 +100,11 @@ _start:
 	
 	/* Start the game */
 	START_GAME:
-	break
 	movi		r21, 0x1F4					# Reset game speed
 	cmpgei		r18, r16, 0x20				# set the direction.
 	movi		r17, 0x3					# Set phase 3
-	br 			DELAY
+	movi		r23, 0x0					# reset pressed buttons
+	br			SHOW_SCORE
 
 	PLAY_GAME:
 	br			DO_DISPLAY_1	
@@ -114,6 +114,13 @@ _start:
 	beq			r16, r19, INVERT_DIRECTION 	# Check if we hit lower border
 	movi		r19, 0x200
 	beq			r16, r19, INVERT_DIRECTION 	# Check if we hit upper border
+	movi		r19, 0b10
+	beq			r19, r23, PLAYER_1_FAIL		# No border, but player 1 pressed button
+	movi		r19, 0b1000
+	beq			r19, r23, PLAYER_2_FAIL		# No border, but player 2 pressed button
+	movi		r23, 0x0					# reset pressed buttons
+
+	
 	
 	DO_DISPLAY_2:
 	movi		r19, 0x1
@@ -142,9 +149,88 @@ _start:
 	xori		r18, r18, 0x1				# Invert the direction after we hit the border
 	br			DO_DISPLAY_2
 	
+	PLAYER_1_FAIL:
+	mov			r20, r22					# get score
+	andi		r20, r20, 0xF0				# get score from player 2
+	movi		r19, 4
+	ror			r20, r20, r19				# rotate right by 4 to get correct score
+	movi		r19, 0xA					# max score 10
+	bge			r20, r19, PLAYER_2_WIN		# if p2 reached 10 poins, he wins
+	addi		r22, r22, 0x10				# else add one point
+	br			START_GAME					# start the game
+
+	PLAYER_2_FAIL:
+	mov			r20, r22					# get score
+	andi		r20, r20, 0x0F				# get score from player 1
+	movi		r19, 0xA					# max score 10
+	bge			r20, r19, PLAYER_1_WIN		# if p1 reached 10 poins, he wins
+	addi		r22, r22, 0x01				# else add one point
+	br			START_GAME					# start the game
+	
+	PLAYER_2_WIN:
+	
+	PLAYER_1_WIN:
+	
+	SHOW_SCORE:
+	andi		r20, r22, 0xF0				# get score from player 2
+	movi		r19, 4
+	ror			r20, r20, r19				# rotate right by 4 to get correct score
+	call 		LED_NUMBER
+	mov			r19, r10
+	roli		r19, r19, 24				# move the number to the right
+		
+	andi		r20, r22, 0x0F				# get score from player 1
+	call		LED_NUMBER
+	or			r19, r19, r10				# combine the 2 LED-numbers
+	movia 		r20, HEX3_HEX0_BASE			# stores the hex base addres
+	stwio 		r19, 0(r20)					# store the numbers to the LEDs
+	br 			DELAY	
 	
 	
+	/* Gets the number from r20 and converts it into a LED-number and stores it in r10 */
+	LED_NUMBER:
+	movi		r10, 0b00111111 #Display value for 0
+	movi		r11, 0x0
+	beq			r20, r11, RETURN #Check if score is 0
 	
+	movi		r10, 0b00000110 #Display value for 1
+	movi		r11, 0x1
+	beq			r20, r11, RETURN #Check if score is 1
+
+	movi		r10, 0b01011011 #Display value for 2
+	movi		r11, 0x2
+	beq			r20, r11, RETURN #Check if score is 2
+
+	movi		r10, 0b01001111 #Display value for 3
+	movi		r11, 0x3
+	beq			r20, r11, RETURN #Check if score is 3
+
+	movi		r10, 0b01100110 #Display value for 4
+	movi		r11, 0x4
+	beq			r20, r11, RETURN #Check if score is 4
+
+	movi		r10, 0b01101101 #Display value for 5
+	movi		r11, 0x5
+	beq			r20, r11, RETURN #Check if score is 5
+
+	movi		r10, 0b01111101 #Display value for 6
+	movi		r11, 0x6
+	beq			r20, r11, RETURN #Check if score is 6
+
+	movi		r10, 0b00000111 #Display value for 7
+	movi		r11, 0x7
+	beq			r20, r11, RETURN #Check if score is 7
+
+	movi		r10, 0b01111111 #Display value for 8
+	movi		r11, 0x8
+	beq			r20, r11, RETURN #Check if score is 8
+
+	movi		r10, 0b01101111 #Display value for 9
+	movi		r11, 0x9
+	beq			r20, r11, RETURN #Check if score is 9
+	
+	RETURN:
+	ret
 /********************************************************************************
  * DATA SECTION
  */
