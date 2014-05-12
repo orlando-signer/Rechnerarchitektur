@@ -70,9 +70,10 @@ _start:
 	movi		r16, 0x1		# Code for first LED
 	movi		r18, 0x0		# Direction bit (will be inverted first)
 	movi		r17, 0x1		# Set init phase
-	movi		r21, 0xF4		# How long to wait each step (0x1F4 = 500)
+	movi		r21, 0xF4		# How long to wait each step (0xF4 = 250)
 	movi		r22, 0x0		# reset score
-	br			SHOW_SCORE
+	call		SHOW_SCORE
+	br			CHECK_PHASE
 	
 	CHECK_PHASE:
 	movi 		r19, 0x1
@@ -103,14 +104,15 @@ _start:
 	
 	/* Start the game */
 	START_GAME:
-	movi		r21, 0x1F4					# Reset game speed
+	movi		r21, 0xF4					# Reset game speed
 	movia		r19, TIME
 	ldwio		r20, 0(r19)					# Get the Time from the Counter
 	andi		r18, r20, 0x1				# Set the direction
 	movi		r16, 0x10					# set the ball to the 4th led
 	movi		r17, 0x3					# Set phase 3
 	movi		r23, 0x0					# reset pressed buttons
-	br			SHOW_SCORE
+	call		SHOW_SCORE
+	br			PLAY_GAME
 
 	PLAY_GAME:
 	br			DO_DISPLAY_1	
@@ -143,12 +145,12 @@ _start:
 	
 	DELAY:
 	movi		r23, 0x0					# reset all pressed buttons
-	br REAL_DELAY
+	br REAL_DELAY							# do the real delay
 	
 	REAL_DELAY:
 	movia		r19, TIME
 	ldwio		r20, 0(r19)					# Get the Time from the Counter
-	blt			r20, r21, REAL_DELAY				# Check if we already waited more than (r21) seconds
+	blt			r20, r21, REAL_DELAY		# Check if we already waited more than (r21) seconds
 	stwio		r0, 0(r19)					# Reset Time counter
 	br			CHECK_PHASE					# Go to display the next position
 	
@@ -205,6 +207,7 @@ _start:
 	br 			DELAY
 	
 	SHOW_SCORE:
+	mov			r12, ra						# store the return address, so we can later jump back
 	andi		r20, r22, 0xF0				# get score from player 2
 	srli		r20, r20, 0x4				# shift right by 4 to get correct score
 	call 		LED_NUMBER
@@ -216,7 +219,8 @@ _start:
 	or			r19, r19, r10				# combine the 2 LED-numbers
 	movia 		r20, HEX3_HEX0_BASE			# stores the hex base addres
 	stwio 		r19, 0(r20)					# store the numbers to the LEDs
-	br 			DELAY	
+	mov			ra, r12
+	ret
 	
 	
 	/* Gets the number from r20 and converts it into a LED-number and stores it in r10 */
