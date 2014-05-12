@@ -45,7 +45,7 @@ _start:
 	sthio		r16, 0(r15)
 	
 	/* enable pushbutton interrupts */
-	movia	r16, PUSHBUTTON_BASE
+	movia		r16, PUSHBUTTON_BASE
 	movi		r15, 0b01110		# set all 3 interrupt mask bits to 1 (bit 0 is Nios II Reset) 
 	stwio		r15, 8(r16)
 	
@@ -55,13 +55,14 @@ _start:
 	movi		r16, 1
 	wrctl		status, r16
 	
-	/* r16 holds the value for the blinking LED (the position of the ball) */
-	/* r17 holds the current phase (1=Init 3=Play game 4=Finished) */
-	/* r18 is used to keep track of the direction (if 1, go up, else down)*/
-	/* r19, r20 are variables for free usage (no global usage) */
-	/* r21 stores the amount of time we want to wait each step (speed of the ball) */
-	/* r22 stores the points for player 1 and 2 (bit 0 to 3 for player 1, bit 4 to 7 for player 2) */
-	/* r23 stores the button presses (0b1000 k3 pressed, 0b0010 k1 pressed, 0b1010 both pressed) */
+	/* r16 holds the value for the blinking LED (the position of the ball)
+	 * r17 holds the current phase (1=Init 3=Play game 4=Finished)
+	 * r18 is used to keep track of the direction (if 1, go up, else down
+	 * r19, r20 are variables for free usage (no global usage)
+	 * r21 stores the amount of time we want to wait each step (speed of the ball)
+	 * r22 stores the points for player 1 and 2 (bit 0 to 3 for player 1, bit 4 to 7 for player 2)
+	 * r23 stores the button presses (0b1000 k3 pressed, 0b0010 k1 pressed, 0b1010 both pressed)
+	 */
 	
 	/* Initialize first red LED (light up) */
 	INIT:
@@ -69,7 +70,7 @@ _start:
 	movi		r16, 0x1		# Code for first LED
 	movi		r18, 0x0		# Direction bit (will be inverted first)
 	movi		r17, 0x1		# Set init phase
-	movi		r21, 0x1F4		# How long to wait each step (0x1F4 = 500)
+	movi		r21, 0xF4		# How long to wait each step (0x1F4 = 500)
 	movi		r22, 0x0		# reset score
 	br			SHOW_SCORE
 	
@@ -141,9 +142,13 @@ _start:
 	br			DELAY						# Delay the next output
 	
 	DELAY:
+	movi		r23, 0x0					# reset all pressed buttons
+	br REAL_DELAY
+	
+	REAL_DELAY:
 	movia		r19, TIME
 	ldwio		r20, 0(r19)					# Get the Time from the Counter
-	blt			r20, r21, DELAY				# Check if we already waited more than (r21) seconds
+	blt			r20, r21, REAL_DELAY				# Check if we already waited more than (r21) seconds
 	stwio		r0, 0(r19)					# Reset Time counter
 	br			CHECK_PHASE					# Go to display the next position
 	
