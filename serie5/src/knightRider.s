@@ -74,14 +74,13 @@ _start:
 	br			SHOW_SCORE
 	
 	CHECK_PHASE:
-	mov			r24, r0			# reset pressed buttons
 	movi 		r19, 0x1
-	beq			r17, r19, INIT_GAME
+	beq			r17, r19, INIT_GAME			# state 1: init
 	movi		r19, 0x3
-	beq			r17, r19, PLAY_GAME
+	beq			r17, r19, PLAY_GAME			# state 3: playing
 	movi		r19, 0x4
-	beq			r17, r19, FINISHED_GAME
-	br			INIT					# if something is messed up, go back to init phase
+	beq			r17, r19, FINISHED_GAME		# state 4: finished
+	br			INIT						# if something is messed up, go back to init phase
 	
 	/* Init phase: blinking LEDR4 and LEDR5 until both players press KEY1 and KEY3 */
 	INIT_GAME:
@@ -161,7 +160,7 @@ _start:
 	br			PLAYER_2_FAIL				# player didnt press button	
 	
 	INVERT_DIRECTION:
-	subi		r21, r21, 0x5				# Subtract a fixed amount to the current waiting time
+	subi		r21, r21, 0x10				# Subtract a fixed amount to the current waiting time
 	xori		r18, r18, 0x1				# Invert the direction after we hit the border
 	br			DO_DISPLAY_2
 	

@@ -22,7 +22,7 @@ PUSHBUTTON_ISR:
 
 
 	movia		r19, PUSHBUTTON_BASE
-	ldwio		r20, 0xC(r19)			# store pressed button in r24
+	ldwio		r20, 0xC(r19)			# store pressed button in r20
 	stwio		r0, 0xC(r19)			# clear the interrupt	
 	xor			r23, r23, r20			# store currently pressed button to r23
 	ret
