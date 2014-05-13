@@ -25,9 +25,52 @@
 
 \section{Theorie-Teil}
 
+\subsection{Aufgabe 1}
+Da bei beq und bne die Positionen , an die gesprungen werden soll, relativ zur aktuellen Positin 
+angegeben wird, braucht es negative Werte.\\
+Ebenfalls bei den Load und Store Befehlen kann der Offset zur Basisadresse negativ sein.
+\subsection{Aufgabe 2}
+\begin{array}{|c|c|}
+\hline
+Eingabe & Ausgabe \\
+\hline
+$0xFE \& 0xEF$ & $0xEE$\\\hline
+$0xFE \&\& 0xEF$ & 1\\\hline
+$0xFE $ | $ 0xEF$ & $0xFF$\\\hline
+$0xFE $ || $ 0xEF$ & 1\\\hline
+$\sim 0xFE$ & $-0xFF$\\\hline
+$!0xFE$ & 0\\\hline
+\end{array}
+\subsection{Aufgabe 3}
+Mittels Schnittstellen, an denen die Hardware entsprechende Informationen zur Verf"ugung stellt.\\
+Als Beispiel: Die Switches des Boards, die, je nachdem wie sie gestellt sind, ein Feld entweder mit 0 oder 1 f"ullen.
+\subsection{Aufgabe 4}
+\begin{enumerate}
+	\item{Singlecycle-Implementation} Das Resultat einfach invertieren, falls die ALU beim 
+	Vergleich 0 zur"uck gibt. (NOT-Gatter am 0-Ausgang der ALU)
+	\item{Multicycle-Implementation} Analog Singlecycle-Implementation.
+\end{enumerate}
+\\
+
+\subsection{Aufgabe 5}
+Um die Daten, die f"ur den n"achsten Rechenschritt gebraucht werden, zwischenzuspeichern, da die 
+n"achste Berechnungsstufe m"oglicherweise noch nicht zur Verf"ugung steht.
 \subsection{Aufgabe 6}
 \textbf{Structural Hazard:} Tritt auf, falls während einem Clock-Cycle die gleiche Resource von zwei verschiedenen Instruktionen benötigt wird. Z.B. wenn eine Instruktion im 4. Schritt etwas vom Memory liest, gleichzeitig aber eine andere Instruktion in der Pipeline ihre Instruktion vom Memory liest. Dies kann umgangen werden, indem es separate Memories für Instruktionen und Daten gibt.\\
 \textbf{Data Hazard:} Tritt auf, wenn eine Instruktion noch nicht ausgeführt werden kann, da sie vom Resultat einer anderen Instruktion abhängt. Z.B. eine Instruktion berechnet einen Wert und schreibt ihn in Register \$1. Benötigt die nächste Instruktion den Wert von \$1, so muss sie in der Pipeline warten, bis die erste Instruktion den Wert ins Register geschrieben hat. Mittels Forwarding kann dieses Problem umgangen werden. Dabei dient der berechnete Wert von der ALU direkt als Input für die ALU. Mittels Mux kann dann vor der ALU entschieden werden, welcher Wert übernommen wird. \\
 \textbf{Control Hazard:} Tritt bei Instruktionen auf, die den Befehlszäher verändern (PC != PC + 4), z.B. bei Branching oder Jumps. Dabei sind bei nach einem Branch/Jump eventuell falsche Instruktionen in der Pipeline, die geflusht werden müssen. Deshalb ist es wichtig, die Zieladresse so früh wie möglich zu berechnen, damit nicht zu viele unnötige Instruktionen in der Pipeline geflusht werden.\\
+\subsection{Aufgabe 7}
+Auf Folie 19 werden die Resultate aus dem 4. Cycle der beq Instruction bereits im ersten Cycle der lw instruction gebraucht.\\
+Auf Folie 15 ist dies nur mit Abstand 2 der Fall.
+\subsection{Aufgabe 8}
+add \$t1, \$t2, \$t3 \\
+sub \$t4, \textbf{\$t1} (Forwarding), \$t2 \\
+lw \$s2, \textbf{200(\$t1)} (Forwarding) \\
+add \$s3, \$t1 ,\textbf{\$s2} (Stall) \\
 
+\newpage
+\section{Praktischer Teil}
+\lstinputlisting[caption=knightRider.s]{src/knightRider.s}
+\newpage
+\lstinputlisting[caption=pushbutton.s]{src/pushbutton.s}
 \end{document}
